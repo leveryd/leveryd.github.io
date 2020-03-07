@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文记录在使用docker做开发时踩过的一些坑，包括docker工具本身的和在docker中使用其他工具的坑。  镜像层数存在限制暂时使用`docker export | import`重新制作新的镜像来解决  CMD和ENTRYPOINT区别 报错：docker run -ti ethereum/client-go /bin/sh 正确：docker run -ti --entrypoint=/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker开发时踩过的坑">
+<meta property="og:url" content="http://yoursite.com/2019/09/17/docker的坑/index.html">
+<meta property="og:site_name" content="leveryd个人博客">
+<meta property="og:description" content="本文记录在使用docker做开发时踩过的一些坑，包括docker工具本身的和在docker中使用其他工具的坑。  镜像层数存在限制暂时使用`docker export | import`重新制作新的镜像来解决  CMD和ENTRYPOINT区别 报错：docker run -ti ethereum/client-go /bin/sh 正确：docker run -ti --entrypoint=/">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-07T06:21:57.676Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="docker开发时踩过的坑">
+<meta name="twitter:description" content="本文记录在使用docker做开发时踩过的一些坑，包括docker工具本身的和在docker中使用其他工具的坑。  镜像层数存在限制暂时使用`docker export | import`重新制作新的镜像来解决  CMD和ENTRYPOINT区别 报错：docker run -ti ethereum/client-go /bin/sh 正确：docker run -ti --entrypoint=/">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/17/docker的坑/">
+
+
+
+
+
+  <title>docker开发时踩过的坑 | leveryd个人博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">leveryd个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/17/docker的坑/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leveryd">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="leveryd个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">docker开发时踩过的坑</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-17T23:38:00+08:00">
+                2019-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文记录在使用docker做开发时踩过的一些坑，包括docker工具本身的和在docker中使用其他工具的坑。</p>
+<ol>
+<li>镜像层数存在限制<pre><code>暂时使用`docker export | import`重新制作新的镜像来解决
+</code></pre></li>
+<li><p>CMD和ENTRYPOINT区别</p>
+<pre><code>报错：docker run -ti ethereum/client-go /bin/sh
+正确：docker run -ti --entrypoint=/bin/sh ethereum/client-go
+</code></pre></li>
+<li><p>pull不到最新的镜像 (超级坑，似乎是镜像层数到了一定数量，就会这样)</p>
+<ul>
+<li>digest值不一样是肯定的</li>
+<li>docker export | import 就解决了</li>
+<li>原因还未知，不能复现</li>
+</ul>
+</li>
+<li><p>CMD指令报错</p>
+<pre><code>Dockerfile如下：
+
+  FROM busybox
+  CMD [&quot;/bin/ls /&quot;]
+
+运行时报如下错误
+
+docker: Error response from daemon: OCI runtime create failed: container_linux.go:345: starting container process caused &quot;exec: \&quot;/bin/ls /\&quot;: stat /bin/ls /: no such file or directory&quot;: unknown.
+
+原因是CMD使用错误，CMD应该为数组`CMD [&quot;/bin/ls&quot;,&quot;/&quot;]`
+</code></pre></li>
+<li><p>/etc/hosts文件不能覆盖，在dockerfile中无法写入</p>
+<pre><code>Dockerfile如下，无法修改/etc/hosts文件
+FROM busybox
+RUN echo &gt; /etc/hosts
+</code></pre></li>
+<li><p>内网docker registry login报503错误</p>
+<pre><code>原因未知，隔一段时间后再次登陆成功。可能是服务问题
+</code></pre></li>
+<li><p>脚本在拉取私有仓库时，pull镜像提示找不到</p>
+<pre><code>[root@x ~]# docker pull internal.docker.registry/xxx/yyy:latest
+Pulling repository internal.docker.registry/xxx/yyy
+Error: image xxx/yyy:latest not found
+
+原因：
+未登录，坑爹的是私服响应中没有任何提示未登录
+解决：
+在脚本中每一次pull前docker login
+</code></pre></li>
+<li><p>cache</p>
+<pre><code>Dockerfile如下
+
+  FROM xxx
+  pip install --upgrade y
+  ...
+  CMD [&quot;xxx.sh&quot;]
+
+因为缓存的原因，y依赖包并没有升级
+
+解决办法：将镜像制作分为两部分，不需要缓存的build时添加--no-cache参数。参考1
+
+一行cache改变，接下来的指令都不会缓存
+</code></pre></li>
+<li><p>pipenv无法安装私有仓库的库</p>
+<pre><code>私有仓库因为没有证书，所以没有走https。pip安装的时候可以使用trust-host来使用http协议安装软件，但是pipenv命令行中没有找到类似trust-host的参数。
+
+这个问题属于pipenv的使用问题，只是因为在Dockerfile中用到了pipenv，也就记在这里了。
+
+解决办法：在配置中使用verify_ssl参数，示例配置如下
+
+[[source]]
+url = &quot;https://pypi.python.org/simple&quot;
+verify_ssl = true
+name = &quot;pypi&quot;
+
+[[source]]
+url = &quot;http://pypi.home.kennethreitz.org/simple&quot;
+verify_ssl = false
+name = &quot;home&quot;
+</code></pre></li>
+<li><p>容器运行一段时间后根目录只读</p>
+<pre><code>现象：
+https://github.com/moby/moby/issues/18010
+
+应用层奇怪的bug和这个有关，比如代理无法正常工作，是因为没有空间创建证书了。
+
+原因：
+内核重新挂载文件系统 grep -B10 &quot;read-only&quot; /var/log/messages.
+重新挂载的原因好像是磁盘不够了
+
+解决办法：
+删除磁盘中的多余文件，腾出空间
+</code></pre></li>
+<li><p>docker中python程序日志没有实时输出</p>
+<pre><code>现象：
+  docker log没有看到python打印的日志，过了一段时间后才能看到
+原因：
+  存在输出缓冲区
+解决方法：
+* python -u &lt;script&gt; 禁止python的缓冲区
+</code></pre></li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="!https://stackoverflow.com/questions/55619593/bust-cache-bust-within-dockerfile-without-providing-external-build-args">Bust cache bust within Dockerfile without providing external build args</a></li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/07/Celery的坑/" rel="next" title="Celery的坑">
+                <i class="fa fa-chevron-left"></i> Celery的坑
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">leveryd</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leveryd</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
