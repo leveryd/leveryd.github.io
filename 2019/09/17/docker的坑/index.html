@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="本文记录在使用docker做开发时踩过的一些坑，包括docker工具本身的和在docker中使用其他工具的坑。  镜像层数存在限制暂时使用`docker export | import`重新制作新的镜像来解决  CMD和ENTRYPOINT区别 报错：docker run -ti ethereum/client-go /bin/sh 正确：docker run -ti --entrypoint=/">
+<meta name="description" content="本文记录在使用docker做开发时踩过的一些坑，包括docker本身的和在docker中使用其他工具的坑。  镜像层数存在限制暂时使用`docker export | import`重新制作新的镜像来解决  CMD和ENTRYPOINT区别 报错：docker run -ti ethereum/client-go /bin/sh 正确：docker run -ti --entrypoint=/bi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker开发时踩过的坑">
 <meta property="og:url" content="https://looklook.gitee.io/2019/09/17/docker的坑/index.html">
 <meta property="og:site_name" content="leveryd个人博客">
-<meta property="og:description" content="本文记录在使用docker做开发时踩过的一些坑，包括docker工具本身的和在docker中使用其他工具的坑。  镜像层数存在限制暂时使用`docker export | import`重新制作新的镜像来解决  CMD和ENTRYPOINT区别 报错：docker run -ti ethereum/client-go /bin/sh 正确：docker run -ti --entrypoint=/">
+<meta property="og:description" content="本文记录在使用docker做开发时踩过的一些坑，包括docker本身的和在docker中使用其他工具的坑。  镜像层数存在限制暂时使用`docker export | import`重新制作新的镜像来解决  CMD和ENTRYPOINT区别 报错：docker run -ti ethereum/client-go /bin/sh 正确：docker run -ti --entrypoint=/bi">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-07T06:21:57.676Z">
+<meta property="og:updated_time" content="2020-03-07T07:20:34.282Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker开发时踩过的坑">
-<meta name="twitter:description" content="本文记录在使用docker做开发时踩过的一些坑，包括docker工具本身的和在docker中使用其他工具的坑。  镜像层数存在限制暂时使用`docker export | import`重新制作新的镜像来解决  CMD和ENTRYPOINT区别 报错：docker run -ti ethereum/client-go /bin/sh 正确：docker run -ti --entrypoint=/">
+<meta name="twitter:description" content="本文记录在使用docker做开发时踩过的一些坑，包括docker本身的和在docker中使用其他工具的坑。  镜像层数存在限制暂时使用`docker export | import`重新制作新的镜像来解决  CMD和ENTRYPOINT区别 报错：docker run -ti ethereum/client-go /bin/sh 正确：docker run -ti --entrypoint=/bi">
 
 
 
@@ -309,7 +309,7 @@
       
 
       
-        <p>本文记录在使用docker做开发时踩过的一些坑，包括docker工具本身的和在docker中使用其他工具的坑。</p>
+        <p>本文记录在使用docker做开发时踩过的一些坑，包括docker本身的和在docker中使用其他工具的坑。</p>
 <ol>
 <li>镜像层数存在限制<pre><code>暂时使用`docker export | import`重新制作新的镜像来解决
 </code></pre></li>
