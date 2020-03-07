@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="leveryd个人博客">
 <meta property="og:description" content="之前提交到某平台的漏洞，现在已经修复 漏洞证明 前提条件用户可以发帖 复现步骤发表帖子后,访问如下链接：1forum.php?mod=ajax&amp;amp;action=setthreadcover&amp;amp;inajax=1&amp;amp;fid=2&amp;amp;wysiwyg=1&amp;amp;imgurl=ftp://127.0.0.1:8089&amp;amp;tid=26815&amp;amp;pid=1   其中的imgu">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://looklook.gitee.io/img/6.png">
-<meta property="og:image" content="https://looklook.gitee.io/img/7.png">
-<meta property="og:image" content="https://looklook.gitee.io/img/8.png">
-<meta property="og:updated_time" content="2020-03-07T06:28:55.334Z">
+<meta property="og:image" content="https://looklook.gitee.io/blog/img/6.png">
+<meta property="og:image" content="https://looklook.gitee.io/blog/img/7.png">
+<meta property="og:image" content="https://looklook.gitee.io/blog/img/8.png">
+<meta property="og:updated_time" content="2020-03-07T07:20:10.085Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Disucz ssrf一处">
 <meta name="twitter:description" content="之前提交到某平台的漏洞，现在已经修复 漏洞证明 前提条件用户可以发帖 复现步骤发表帖子后,访问如下链接：1forum.php?mod=ajax&amp;amp;action=setthreadcover&amp;amp;inajax=1&amp;amp;fid=2&amp;amp;wysiwyg=1&amp;amp;imgurl=ftp://127.0.0.1:8089&amp;amp;tid=26815&amp;amp;pid=1   其中的imgu">
-<meta name="twitter:image" content="https://looklook.gitee.io/img/6.png">
+<meta name="twitter:image" content="https://looklook.gitee.io/blog/img/6.png">
 
 
 
@@ -321,10 +321,10 @@
 </li>
 </ol>
 <p>其中的imgurl是ssrf探测的地址,另外需要将tid修改为自己发表的帖子的tid值.这个值在chrome浏览器前端中搜索tid可以找到.</p>
-<p><img src="/img/6.png" alt=""></p>
+<p><img src="/blog/img/6.png" alt=""></p>
 <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>漏洞触发的代码在source/module/forum/forum_ajax.phpforum_ajax.php文件大约211行处,调用了setthreadcover函数.</p>
-<p>函数会根据第五个参数imgurl发起网络请求,此处imgurl刚好可控.<br><img src="/img/7.png" alt=""></p>
-<p>最终在source/class/class_image.php的init函数中发起请求<br><img src="/img/8.png" alt=""></p>
+<p>函数会根据第五个参数imgurl发起网络请求,此处imgurl刚好可控.<br><img src="/blog/img/7.png" alt=""></p>
+<p>最终在source/class/class_image.php的init函数中发起请求<br><img src="/blog/img/8.png" alt=""></p>
 <h1 id="挖这个洞的思路"><a href="#挖这个洞的思路" class="headerlink" title="挖这个洞的思路"></a>挖这个洞的思路</h1><ol>
 <li>思路比较简单，在这个source/class/class_image.php中看到init函数发起网络请求,向上找调用init函数的地方挖掘漏洞.</li>
 </ol>
