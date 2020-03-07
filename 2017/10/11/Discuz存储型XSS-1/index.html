@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Disucz,">
 
 
 
@@ -79,17 +79,23 @@
 
 
 
-<meta name="description" content="本文记录在使用docker做开发时踩过的一些坑，包括docker工具本身的和在docker中使用其他工具的坑。  镜像层数存在限制暂时使用`docker export | import`重新制作新的镜像来解决  CMD和ENTRYPOINT区别 报错：docker run -ti ethereum/client-go /bin/sh 正确：docker run -ti --entrypoint=/">
+<meta name="description" content="之前提交到某平台的漏洞，现在已经修复 漏洞证明 漏洞需要开启后台四方格功能 发表新帖子,在帖子标题中设置为payload&amp;amp;#x003c;img src=1 onerror=alert(1)&amp;amp;#x003e; 然后在首页鼠标放在帖子准备点击我们刚才的发表的帖子时，触发onmouseover事件，执行我们的代码。漏洞分析鼠标放在帖子上准备点击时，触发onmouseover事件。onmou">
+<meta name="keywords" content="Disucz">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker开发时踩过的坑">
-<meta property="og:url" content="https://looklook.gitee.io/2019/09/17/docker的坑/index.html">
+<meta property="og:title" content="Discuz存储型XSS(1)">
+<meta property="og:url" content="https://looklook.gitee.io/2017/10/11/Discuz存储型XSS-1/index.html">
 <meta property="og:site_name" content="leveryd个人博客">
-<meta property="og:description" content="本文记录在使用docker做开发时踩过的一些坑，包括docker工具本身的和在docker中使用其他工具的坑。  镜像层数存在限制暂时使用`docker export | import`重新制作新的镜像来解决  CMD和ENTRYPOINT区别 报错：docker run -ti ethereum/client-go /bin/sh 正确：docker run -ti --entrypoint=/">
+<meta property="og:description" content="之前提交到某平台的漏洞，现在已经修复 漏洞证明 漏洞需要开启后台四方格功能 发表新帖子,在帖子标题中设置为payload&amp;amp;#x003c;img src=1 onerror=alert(1)&amp;amp;#x003e; 然后在首页鼠标放在帖子准备点击我们刚才的发表的帖子时，触发onmouseover事件，执行我们的代码。漏洞分析鼠标放在帖子上准备点击时，触发onmouseover事件。onmou">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-07T06:21:57.676Z">
+<meta property="og:image" content="https://looklook.gitee.io/img/1.jpeg">
+<meta property="og:image" content="https://looklook.gitee.io/img/2.jpeg">
+<meta property="og:image" content="https://looklook.gitee.io/img/3.jpeg">
+<meta property="og:image" content="https://looklook.gitee.io/img/4.png">
+<meta property="og:updated_time" content="2020-03-07T07:09:45.281Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="docker开发时踩过的坑">
-<meta name="twitter:description" content="本文记录在使用docker做开发时踩过的一些坑，包括docker工具本身的和在docker中使用其他工具的坑。  镜像层数存在限制暂时使用`docker export | import`重新制作新的镜像来解决  CMD和ENTRYPOINT区别 报错：docker run -ti ethereum/client-go /bin/sh 正确：docker run -ti --entrypoint=/">
+<meta name="twitter:title" content="Discuz存储型XSS(1)">
+<meta name="twitter:description" content="之前提交到某平台的漏洞，现在已经修复 漏洞证明 漏洞需要开启后台四方格功能 发表新帖子,在帖子标题中设置为payload&amp;amp;#x003c;img src=1 onerror=alert(1)&amp;amp;#x003e; 然后在首页鼠标放在帖子准备点击我们刚才的发表的帖子时，触发onmouseover事件，执行我们的代码。漏洞分析鼠标放在帖子上准备点击时，触发onmouseover事件。onmou">
+<meta name="twitter:image" content="https://looklook.gitee.io/img/1.jpeg">
 
 
 
@@ -119,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="https://looklook.gitee.io/2019/09/17/docker的坑/">
+  <link rel="canonical" href="https://looklook.gitee.io/2017/10/11/Discuz存储型XSS-1/">
 
 
 
 
 
-  <title>docker开发时踩过的坑 | leveryd个人博客</title>
+  <title>Discuz存储型XSS(1) | leveryd个人博客</title>
   
 
 
@@ -242,7 +248,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://looklook.gitee.io/blog/2019/09/17/docker的坑/">
+    <link itemprop="mainEntityOfPage" href="https://looklook.gitee.io/blog/2017/10/11/Discuz存储型XSS-1/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leveryd">
@@ -259,7 +265,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">docker开发时踩过的坑</h1>
+          <h1 class="post-title" itemprop="name headline">Discuz存储型XSS(1)</h1>
         
 
         <div class="post-meta">
@@ -271,8 +277,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-17T23:38:00+08:00">
-                2019-09-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-11T17:13:06+08:00">
+                2017-10-11
               </time>
             
 
@@ -309,106 +315,19 @@
       
 
       
-        <p>本文记录在使用docker做开发时踩过的一些坑，包括docker工具本身的和在docker中使用其他工具的坑。</p>
-<ol>
-<li>镜像层数存在限制<pre><code>暂时使用`docker export | import`重新制作新的镜像来解决
-</code></pre></li>
-<li><p>CMD和ENTRYPOINT区别</p>
-<pre><code>报错：docker run -ti ethereum/client-go /bin/sh
-正确：docker run -ti --entrypoint=/bin/sh ethereum/client-go
-</code></pre></li>
-<li><p>pull不到最新的镜像 (超级坑，似乎是镜像层数到了一定数量，就会这样)</p>
-<ul>
-<li>digest值不一样是肯定的</li>
-<li>docker export | import 就解决了</li>
-<li>原因还未知，不能复现</li>
-</ul>
-</li>
-<li><p>CMD指令报错</p>
-<pre><code>Dockerfile如下：
-
-  FROM busybox
-  CMD [&quot;/bin/ls /&quot;]
-
-运行时报如下错误
-
-docker: Error response from daemon: OCI runtime create failed: container_linux.go:345: starting container process caused &quot;exec: \&quot;/bin/ls /\&quot;: stat /bin/ls /: no such file or directory&quot;: unknown.
-
-原因是CMD使用错误，CMD应该为数组`CMD [&quot;/bin/ls&quot;,&quot;/&quot;]`
-</code></pre></li>
-<li><p>/etc/hosts文件不能覆盖，在dockerfile中无法写入</p>
-<pre><code>Dockerfile如下，无法修改/etc/hosts文件
-FROM busybox
-RUN echo &gt; /etc/hosts
-</code></pre></li>
-<li><p>内网docker registry login报503错误</p>
-<pre><code>原因未知，隔一段时间后再次登陆成功。可能是服务问题
-</code></pre></li>
-<li><p>脚本在拉取私有仓库时，pull镜像提示找不到</p>
-<pre><code>[root@x ~]# docker pull internal.docker.registry/xxx/yyy:latest
-Pulling repository internal.docker.registry/xxx/yyy
-Error: image xxx/yyy:latest not found
-
-原因：
-未登录，坑爹的是私服响应中没有任何提示未登录
-解决：
-在脚本中每一次pull前docker login
-</code></pre></li>
-<li><p>cache</p>
-<pre><code>Dockerfile如下
-
-  FROM xxx
-  pip install --upgrade y
-  ...
-  CMD [&quot;xxx.sh&quot;]
-
-因为缓存的原因，y依赖包并没有升级
-
-解决办法：将镜像制作分为两部分，不需要缓存的build时添加--no-cache参数。参考1
-
-一行cache改变，接下来的指令都不会缓存
-</code></pre></li>
-<li><p>pipenv无法安装私有仓库的库</p>
-<pre><code>私有仓库因为没有证书，所以没有走https。pip安装的时候可以使用trust-host来使用http协议安装软件，但是pipenv命令行中没有找到类似trust-host的参数。
-
-这个问题属于pipenv的使用问题，只是因为在Dockerfile中用到了pipenv，也就记在这里了。
-
-解决办法：在配置中使用verify_ssl参数，示例配置如下
-
-[[source]]
-url = &quot;https://pypi.python.org/simple&quot;
-verify_ssl = true
-name = &quot;pypi&quot;
-
-[[source]]
-url = &quot;http://pypi.home.kennethreitz.org/simple&quot;
-verify_ssl = false
-name = &quot;home&quot;
-</code></pre></li>
-<li><p>容器运行一段时间后根目录只读</p>
-<pre><code>现象：
-https://github.com/moby/moby/issues/18010
-
-应用层奇怪的bug和这个有关，比如代理无法正常工作，是因为没有空间创建证书了。
-
-原因：
-内核重新挂载文件系统 grep -B10 &quot;read-only&quot; /var/log/messages.
-重新挂载的原因好像是磁盘不够了
-
-解决办法：
-删除磁盘中的多余文件，腾出空间
-</code></pre></li>
-<li><p>docker中python程序日志没有实时输出</p>
-<pre><code>现象：
-  docker log没有看到python打印的日志，过了一段时间后才能看到
-原因：
-  存在输出缓冲区
-解决方法：
-* python -u &lt;script&gt; 禁止python的缓冲区
-</code></pre></li>
+        <p>之前提交到某平台的漏洞，现在已经修复</p>
+<h1 id="漏洞证明"><a href="#漏洞证明" class="headerlink" title="漏洞证明"></a>漏洞证明</h1><ol>
+<li>漏洞需要开启后台四方格功能<br><img src="/img/1.jpeg" alt=""></li>
+<li>发表新帖子,在帖子标题中设置为payload<br><code>&amp;#x003c;img src=1 onerror=alert(1)&amp;#x003e;</code></li>
+<li>然后在首页鼠标放在帖子准备点击我们刚才的发表的帖子时，触发onmouseover事件，执行我们的代码。<br><img src="/img/2.jpeg" alt=""><h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1>鼠标放在帖子上准备点击时，触发onmouseover事件。onmouseover事件中调用的showTip函数最终调用到了_showTip函数<br><img src="/img/3.jpeg" alt=""></li>
 </ol>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
-<li><a href="!https://stackoverflow.com/questions/55619593/bust-cache-bust-within-dockerfile-without-providing-external-build-args">Bust cache bust within Dockerfile without providing external build args</a></li>
+<p>_showTip函数中使用getAtrribute取了tip属性值，然后又放入innerHTML。<br>重点是getAtrribute函数获取属性值时会自动解码实体编码后的值，这样<code>&amp;#x003c;img src=1 onerror=alert(1)&amp;#x003e;</code>就变成<code>&lt;img src=1 onerror=alert(1)&gt;</code>。<br><img src="/img/4.png" alt=""></p>
+<p>另外此漏洞中的payload只能用<br><code>&amp;#x003c;img src=1 onerror=alert(1)&amp;#x003e;</code><br>而不能用<br><code>&amp;#x3c;img src=1 onerror=alert(1)&amp;#x3e;</code><br>这是由于Discuz中dhtmlspecialchars函数实现问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">function dhtmlspecialchars($string, $flags = null) &#123;</span><br><span class="line">	if(is_array($string)) &#123;</span><br><span class="line">		foreach($string as $key =&gt; $val) &#123;</span><br><span class="line">			$string[$key] = dhtmlspecialchars($val, $flags);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		if($flags === null) &#123;</span><br><span class="line">			$string = str_replace(array(&apos;&amp;&apos;, &apos;&quot;&apos;, &apos;&lt;&apos;, &apos;&gt;&apos;), array(&apos;&amp;amp;&apos;, &apos;&amp;quot;&apos;, &apos;&amp;lt;&apos;, &apos;&amp;gt;&apos;), $string);</span><br><span class="line">			if(strpos($string, &apos;&amp;amp;#&apos;) !== false) &#123;</span><br><span class="line">				$string = preg_replace(&apos;/&amp;amp;((#(\d&#123;3,5&#125;|x[a-fA-F0-9]&#123;4&#125;));)/&apos;, &apos;&amp;\\1&apos;, $string);</span><br><span class="line">			&#125;  //在这一行又将 &amp;amp; 解码成 &amp;,导致htmlspecailchars和php中的htmlspecailchars函数差异</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			if(PHP_VERSION &lt; &apos;5.4.0&apos;) &#123;</span><br><span class="line">				$string = htmlspecialchars($string, $flags);</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				if(strtolower(CHARSET) == &apos;utf-8&apos;) &#123;</span><br><span class="line">					$charset = &apos;UTF-8&apos;;</span><br><span class="line">				&#125; else &#123;</span><br><span class="line">					$charset = &apos;ISO-8859-1&apos;;</span><br><span class="line">				&#125;</span><br><span class="line">				$string = htmlspecialchars($string, $flags, $charset);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return $string;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个差异可以这么解释<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">htmlspecialchars(htmlspecialchars(&quot;&amp;#x003c;&quot;)); 值是&quot;&amp;amp;amp;#x003c;&quot;</span><br><span class="line">dhtmlspecialchars(dhtmlspecialchars(&quot;&amp;#x003c;&quot;)); 值是&quot;&amp;#x003c;&quot;</span><br></pre></td></tr></table></figure></p>
+<p>而上面tip属性值就是两次dhtmlspecialchars了标题的值,输入存到数据库一次，输出时一次。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tip=dhtmlspecialchars(dhtmlspecialchars(标题));</span><br></pre></td></tr></table></figure></p>
+<h1 id="漏洞总结"><a href="#漏洞总结" class="headerlink" title="漏洞总结"></a>漏洞总结</h1><ol>
+<li>dhtmlspecialchars函数和实际的htmlspecialchars函数有差异</li>
+<li>getAttribute函数会将属性值解码</li>
 </ol>
 
       
@@ -425,6 +344,12 @@ https://github.com/moby/moby/issues/18010
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Disucz/" rel="tag"># Disucz</a>
+          
+        </div>
+      
 
       
       
@@ -434,15 +359,15 @@ https://github.com/moby/moby/issues/18010
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/07/07/Celery的坑/" rel="next" title="Celery的坑">
-                <i class="fa fa-chevron-left"></i> Celery的坑
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2017/10/30/Disucz正文存储型XSS-2/" rel="prev" title="Disucz正文存储型XSS(2)">
+                Disucz正文存储型XSS(2) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -565,7 +490,7 @@ https://github.com/moby/moby/issues/18010
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞证明"><span class="nav-number">1.</span> <span class="nav-text">漏洞证明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞分析"><span class="nav-number">2.</span> <span class="nav-text">漏洞分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#漏洞总结"><span class="nav-number">3.</span> <span class="nav-text">漏洞总结</span></a></li></ol></div>
             
 
           </div>
